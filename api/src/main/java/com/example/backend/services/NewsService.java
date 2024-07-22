@@ -32,7 +32,7 @@ public class NewsService {
     DoctorRepository doctorRepository;
     @Autowired
     SpecialtyRepository specialtyRepository;
-    public static String API_KEY = "975a0f79be8fc520ad710ccf3f4940f6";
+    public static String API_KEY = "your gnews api key";
     public static String CATEGORY = "health";
 
     public Set<ArticleDto> getAll(String token, String language) throws AccountNotFoundException, JsonProcessingException {

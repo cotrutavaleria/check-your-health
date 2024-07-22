@@ -8,9 +8,9 @@ server:
 spring:
   datasource:
     driverClassName: 'com.mysql.cj.jdbc.Driver'
-    url: jdbc:mysql://localhost:3306/symptochecker
-    username: root
-    password: valeriacotruta
+    # url: jdbc:mysql://your url
+    # username: your username
+    # password: your password
     initialization-mode: always
   jpa:
     hibernate.ddl-auto: update

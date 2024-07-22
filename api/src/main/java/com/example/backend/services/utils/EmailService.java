@@ -79,7 +79,6 @@ public class EmailService {
             email.setText(emailText);
             email.setSubject(emailMessageRequest.getSubject());
             javaMailSender.send(email);
-            System.out.println("am trimis");
         } catch (Exception e) {
             e.printStackTrace();
         }

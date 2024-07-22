@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 public class SecurityService {
-    private static final String TOKEN_PRIVATE_KEY = "asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4";
+    private static final String TOKEN_PRIVATE_KEY = "your token key";
     private static final Key HMACSharedSecretKey = new SecretKeySpec(Base64.getDecoder().decode(TOKEN_PRIVATE_KEY),
             SignatureAlgorithm.HS256.getJcaName());
 
