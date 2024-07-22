@@ -1,0 +1,153 @@
+<mat-stepper orientation="vertical" [linear]="true" #stepper style="background-color: transparent;">
+    <mat-step [stepControl]="isDoctorQuestion">
+        <form [formGroup]="isDoctorQuestion">
+            <ng-template matStepLabel>
+                <h2>{{"Purpose" | translate}}</h2>
+            </ng-template>
+            <label>{{"Are you a medical professional seeking to connect with new patients?" |
+                translate}}</label><br><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Select an option" | translate}}</mat-label>
+                <mat-select formControlName="isDoctor" required style="color: #6a89d1;">
+                    <mat-option value="Yes" style="color:#6a89d1;">{{"Yes" | translate}}</mat-option>
+                    <mat-option value="No" style=" color: #6a89d1;">{{"No" | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext (click)="showAdditionalInformationForm()" class="buttons">
+                    <p>{{"Next" | translate}}</p>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step *ngIf="showAdditionalDoctorInformation" [stepControl]="additionalDoctorInformation">
+        <form [formGroup]="additionalDoctorInformation">
+            <ng-template matStepLabel>
+                <h2>{{"Additional information" | translate}}</h2>
+            </ng-template>
+            <label>{{"Choose your specialty:"| translate}}</label><br>
+            <p style="font-size: 15px; color:#6a89d1">{{"When your account is verified and activated, you will be able to add additional specialties on the settings page." | translate}}</p>
+            <mat-form-field class="input">
+                <mat-select formControlName="specialty" placeholder="Select..." style="color:#6a89d1;">
+                    <div *ngIf="!isRomanianLang">
+                        <mat-option *ngFor="let lC of data" [value]="lC.englishName" style="color:#6a89d1;">
+                            {{lC.englishName}}
+                        </mat-option>
+                    </div>
+                    <div *ngIf="isRomanianLang">
+                        <mat-option *ngFor="let lC of data" [value]="lC.romanianName" style="color:#6a89d1;">
+                            {{lC.romanianName}}
+                        </mat-option>
+                    </div>
+                </mat-select>
+            </mat-form-field>
+            <label>{{"Enter work address:" | translate}}</label><br>
+            <app-google-adresses-input (placeTyped)="addressInput = $event" (input)="onInput($event.target.value)"
+                [sourcePage]="sourcePage" [placeholderText]="placeholderText">
+            </app-google-adresses-input>
+            <mat-error style="margin-top:-30px; font-size: 15px; color:#6a89d1"
+                *ngIf="additionalDoctorInformation.controls['workAddress'].hasError('minlength') || additionalDoctorInformation.value.workAddress ==''">{{"Your full name must contain at least 4 letters." | translate}}</mat-error>
+            <div>
+                <button mat-button matStepperNext class="buttons" (click)="onInput('')">
+                    <p>{{"Next" | translate}}</p>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="personalInformation">
+        <form [formGroup]="personalInformation">
+            <ng-template matStepLabel>
+                <h2>{{"Personal information" | translate}}</h2>
+            </ng-template>
+            <label>{{"Full name" | translate}}:</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Full name" | translate}}</mat-label>
+                <input style="color:#6a89d1;" matInput formControlName="fullName" required maxlength="100" type="text">
+                <mat-error *ngIf="personalInformation.controls['fullName'].hasError('minlength')">{{"Your full name must contain at least 4 letters." | translate}}</mat-error>
+            </mat-form-field>
+            <label>{{"Gender:" | translate}}</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Select your gender" | translate}}</mat-label>
+                <mat-select formControlName="gender" required style="color:#6a89d1;">
+                    <mat-option value="Male" style="color:#6a89d1;">{{"Male" | translate}}</mat-option>
+                    <mat-option value="Female" style="color:#6a89d1;">{{"Female" | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <label>{{"Birthdate:" | translate}}</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Choose a date" | translate}}</mat-label>
+                <input matInput formControlName="birthdate" [matDatepicker]="datepicker" required
+                    style="color:#6a89d1;">
+                <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                    <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel class="buttons">
+                            <p>{{"Cancel"| translate}}</p>
+                        </button>
+                        <button mat-raised-button color="primary" matDatepickerApply class="buttons">
+                            <p>{{"Apply"| translate}}</p>
+                        </button>
+                    </mat-datepicker-actions>
+                </mat-datepicker>
+            </mat-form-field>
+            <label>E-mail:</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Enter your email"|translate}}</mat-label>
+                <input style="color:#6a89d1;" name="emailAddress" formControlName="emailAddress" matInput
+                    [type]="'email'" required maxlength="100">
+                <mat-error *ngIf="personalInformation.controls['emailAddress'].hasError('email')">{{"Please, enter a valid email." | translate}}</mat-error>
+            </mat-form-field>
+            <label>{{"Phone number"| translate}}:</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Phone number"| translate}}</mat-label>
+                <input style="color:#6a89d1;" matInput formControlName="phoneNumber" required maxlength="10" type="tel">
+                <mat-error *ngIf="personalInformation.controls['phoneNumber'].hasError('pattern')">{{"Please, enter a valid phone number." | translate}}</mat-error>
+            </mat-form-field>
+            <label>{{"Password:" | translate}}</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Password" | translate}}</mat-label>
+                <input style="color:#6a89d1;" name="password" formControlName="password" matInput required
+                    maxlength="100" [type]="hide1 ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide1 = !hide1">
+                    <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error subscriptSizing="dynamic" style="margin-bottom: 10px;"
+                    *ngIf="personalInformation.controls['password'].hasError('pattern')">{{"Your password must contain at least 8 characters." | translate}}</mat-error>
+            </mat-form-field>
+            <label>{{"Confirm your password:" | translate}}</label><br>
+            <mat-form-field class="input">
+                <mat-label>{{"Password" | translate}}</mat-label>
+                <input style="color:#6a89d1;" name="passwordConfirmation" formControlName="passwordConfirmation"
+                    matInput required pattern="{{personalInformation.value.password}}" maxlength="100"
+                    [type]="hide2 ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide2 = !hide2">
+                    <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="personalInformation.value.passwordConfirmation">{{"Your passwords do not match!" | translate}}</mat-error>
+            </mat-form-field>
+            <div>
+                <button *ngIf="showAdditionalDoctorInformation" mat-button matStepperPrevious class="buttons">
+                    <p>{{"Back" | translate}}</p>
+                </button>
+                <button mat-button matStepperNext class="buttons">
+                    <p>{{"Next" | translate}}</p>
+                </button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>
+            <h2>{{"You are done now." | translate}}</h2>
+        </ng-template>
+        <mat-error *ngIf="personalInformation.hasError('CONFLICT')">{{"Your e-mail address is already taken!" | translate}}</mat-error>
+        <div style="margin-top: 20px;">
+            <button mat-button matStepperPrevious class="buttons">
+                <p>{{"Back" | translate}}</p>
+            </button>
+            <button mat-button (click)="submitSignUpInformation(additionalDoctorInformation,personalInformation)"
+                class="buttons">
+                <p>{{"Sign up" | translate}}</p>
+            </button>
+        </div>
+    </mat-step>
+</mat-stepper>

@@ -1,0 +1,107 @@
+<app-tabs-routing [tabsList]="tabsList" *ngIf="userStatus == 'DOCTOR'"></app-tabs-routing>
+<div style="display: flex; justify-content: center;" *ngIf="userStatus == 'PATIENT'">
+    <mat-card class="notifications-card" [ngStyle]="{'width.%': '75'}">
+        <mat-card-content>
+            <div style="display:flex; flex-direction: row;">
+                <button class="icons" mat-mini-fab *ngIf="hideTabLabel"><a href="{{tabsList[1].link}}"
+                        class="links"><mat-icon>task</mat-icon></a></button>
+                <button class="icons" mat-mini-fab *ngIf="hideTabLabel"><a href="{{tabsList[2].link}}"
+                        class="links"><mat-icon>circle_notifications</mat-icon></a></button>
+                <button class="buttons" matbutton *ngIf="!hideTabLabel"><a href="{{tabsList[1].link}}"
+                        class="links">{{"Appointments" | translate}}<mat-icon>task</mat-icon></a></button>
+                <button class="active" matbutton *ngIf="!hideTabLabel"><a href="{{tabsList[2].link}}"
+                        class="links">{{"Notifications" | translate}}<mat-icon>circle_notifications</mat-icon></a></button>
+            </div>
+            <br>
+            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 25px; display: flex; justify-content: center; align-items: center; color:white"
+                *ngIf="notFound">{{"No new notifications." | translate}}</p>
+            <div *ngIf="!notFound">
+                <mat-divider class="mat-dividers"></mat-divider>
+                <div *ngFor="let notification of notifications"
+                    style="font-size: 16px; font-family: 'Montserrat', cursive; font-weight: 600; color:white; display: flex; flex-direction: column;">
+                    <div
+                        style="display: flex; flex-direction: row;flex-wrap: wrap; justify-content: flex-start;padding: 20px; align-items: center;">
+                        <div>
+                            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 20px;" *ngIf="notification.state == 'ACCEPTED'">
+                                <a href="/doctor/{{notification.uuid}}" style="color: white;" #tooltip="matTooltip"
+                                    matTooltip="Click for doctor information" matTooltipPosition="above"
+                                    matTooltipHideDelay="100">
+                                    Dr.{{notification.name}}</a> {{"has accepted your request. Your appointment is set on "| translate}} {{notification.date}} {{"at"| translate}} {{notification.time}}.
+                            </p>
+                            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 20px;" *ngIf="notification.state == 'REFUSED'"><a href="/doctor/{{notification.uuid}}"
+                                    style="color: white;" #tooltip="matTooltip"
+                                    matTooltip="Click for doctor information" matTooltipPosition="above"
+                                    matTooltipHideDelay="100">
+                                    Dr.{{notification.name}}</a> {{"has rejected your request on" | translate}} {{notification.date}} {{"at" | translate}}
+                                {{notification.time}}. {{"The consulting time may have been occupied meanwhile. Check doctor's page for more information." | translate}} </p>
+                        </div>
+                    </div>
+                    <mat-divider class="mat-dividers"></mat-divider>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div style="display: flex; justify-content: center;" *ngIf="userStatus == 'DOCTOR'">
+    <mat-card class="notifications-card" [ngStyle]="{'width.%': notificationCardWidth}">
+        <mat-card-content>
+            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 25px; display: flex; justify-content: center; align-items: center; color:white"
+                *ngIf="notFound">{{"No new notifications." | translate}}</p>
+            <div *ngIf="!notFound">
+                <mat-divider class="mat-dividers" style="margin: 10px 15%;"></mat-divider>
+                <div *ngFor="let notification of notifications"
+                    style="font-size: 16px; font-family: 'Montserrat', cursive; font-weight: 600; color:white; display: flex; flex-direction: column;padding: 10px 15%;">
+                    <div style="display: flex; flex-direction: column;flex-wrap:wrap; justify-content: space-between;">
+                        <div>
+                            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 20px;">{{"Name" | translate}}: <span id="notification-name" (click)="previewPatient(notification.uuid)"
+                                    style="text-decoration-line: underline;">{{notification.name}}</span></p>
+                            <p>{{"New Patient:" | translate}}<span *ngIf="notification.isNew">{{"true" | translate}}</span><span *ngIf="!notification.isNew">{{"false" | translate}}</span></p>
+                            <p>{{"Date & time:"| translate}} {{notification.date}}, {{notification.time}}</p>
+                        </div>
+                        <div>
+                            <p>{{"Consultation Type" | translate}}: {{notification.consultingTypes}}</p>
+                            <p>{{"Total amount:" | translate}} {{notification.totalAmount}} lei</p>
+                            <div class="container" [class.show]="notification.show">
+                                {{"Reason:" | translate}}{{notification.reason}}
+                            </div>
+                            <p style="font-size: 10px;" (click)="notification.show = !notification.show">
+                                <mat-icon>touch_app</mat-icon>
+                                {{ notification.show ?
+                                ("Click for less"|translate) : ('Click for more' | translate)}}
+                            </p>
+                        </div>
+                        <div style="display: flex; flex-direction: row;" [ngStyle]="{'flex-wrap': flexWrap}">
+                            <button *ngIf="!hideTabLabel" id="accept-button" matbutton class="buttons"
+                                (click)="acceptPatient(notification.uuid, notification.date, notification.time, notification.createdAt)"><span>{{"Accept" | translate}}</span><mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button *ngIf="!hideTabLabel" id="reject-button" matbutton class="buttons"
+                                (click)="rejectPatient(notification.uuid, notification.date, notification.time, notification.createdAt)"><span>{{"Reject" | translate}}</span><mat-icon>cancel</mat-icon>
+                            </button>
+                            <button *ngIf="!hideTabLabel" id="view-button" matbutton class="buttons"
+                                (click)="previewPatient(notification.uuid)"><span>{{"View" | translate}}</span><mat-icon>remove_red_eye</mat-icon>
+                            </button>
+                            <button *ngIf="hideTabLabel" matbutton mat-mini-fab color="primary"
+                                (click)="acceptPatient(notification.uuid, notification.date, notification.time, notification.createdAt)"><mat-icon>check_circle</mat-icon></button>
+                            <button *ngIf="hideTabLabel" matbutton mat-mini-fab color="primary"
+                                (click)="rejectPatient(notification.uuid, notification.date, notification.time, notification.createdAt)"><mat-icon>cancel</mat-icon></button>
+                            <button *ngIf="hideTabLabel" matbutton mat-mini-fab color="primary"
+                                (click)="previewPatient(notification.uuid)"><mat-icon>remove_red_eye</mat-icon></button>
+                        </div>
+                    </div>
+                    <mat-divider class="mat-dividers"></mat-divider>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

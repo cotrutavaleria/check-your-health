@@ -1,0 +1,18 @@
+<div style="background-color:  #89a5e8; overflow-x: hidden; 
+overflow-y: auto; border-radius: 20px; overflow: auto;" [ngStyle]="{'height.px' : dialogHeight, 'width.px': dialogWidth}"s>
+    <div class="close-button">
+        <button mat-icon aria-label="close" class="icons" (click)="closeDialog()">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <div class="info-dialog">
+        <img src={{patientDetails.image}} alt="" style="border-radius: 20px; width: 100px; height: 100px;">
+        <h2>{{patientDetails.name}}</h2>
+    </div>
+    <div class="content">
+        <h4>E-mail: {{patientDetails.email}}</h4>
+        <h4>{{"Birthdate:" | translate}} {{patientDetails.birthdate}}</h4>
+        <h4>{{"Gender:" | translate}} {{patientDetails.gender}}</h4>
+        <h4>{{"Phone number:" | translate}} {{patientDetails.phoneNumber}}</h4>
+    </div>
+</div>

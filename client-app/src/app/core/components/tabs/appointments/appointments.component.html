@@ -1,0 +1,92 @@
+<app-tabs-routing [tabsList]="tabsList" *ngIf="userStatus == 'DOCTOR'"></app-tabs-routing>
+<div style="display: flex; justify-content: center;" *ngIf="userStatus == 'PATIENT'">
+    <mat-card class="appointments-card">
+        <mat-card-content>
+            <div style="display:flex; flex-direction: row;">
+                <button class="icons" mat-mini-fab *ngIf="hideTabLabel"><a href="{{tabsList[1].link}}"
+                        class="links"><mat-icon>task</mat-icon></a></button>
+                <button class="icons" mat-mini-fab *ngIf="hideTabLabel"><a href="{{tabsList[2].link}}"
+                        class="links"><mat-icon>circle_notifications</mat-icon></a></button>
+                <button class="active" matbutton *ngIf="!hideTabLabel"><a href="{{tabsList[1].link}}"
+                        class="links">{{"Appointments" | translate}}<mat-icon>task</mat-icon></a></button>
+                <button class="buttons" matbutton *ngIf="!hideTabLabel"><a href="{{tabsList[2].link}}"
+                        class="links">{{"Notifications" | translate}}<mat-icon>circle_notifications</mat-icon></a></button>
+            </div>
+            <br>
+            <p style="font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            font-size: 25px; display: flex; justify-content: center; align-items: center; color:white"
+                *ngIf="notFound">{{"No appointments. Search a doctor to book an appointment." | translate}}</p>
+            <div *ngIf="!notFound">
+                <mat-divider class="mat-dividers"></mat-divider>
+                <div *ngFor="let appointment of appointments"
+                    style="font-size: 16px; font-family: 'Montserrat', cursive; font-weight: 600; color:white; display: flex; flex-direction: column;">
+                    <div
+                        style="display: flex; flex-direction: row;flex-wrap: wrap; justify-content: space-between;padding: 10px 15%;">
+                        <div>
+                            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 20px;">{{"Name" | translate}}: <a href="/doctor/{{appointment.uuid}}" style="color: white;"
+                                    #tooltip="matTooltip" matTooltip="Click for doctor information"
+                                    matTooltipPosition="above" matTooltipHideDelay="100">{{appointment.name}}</a></p>
+                            <p>{{"Consultation type" | translate}}: {{appointment.consultingTypes}}</p>
+                        </div>
+                        <div>
+                            <p>{{"Date:" | translate}} {{appointment.date}}</p>
+                            <p> {{"Time:" | translate}} {{appointment.time}}</p>
+                            <p> {{"Total amount:" | translate}} {{appointment.totalAmount}} lei<span style="font-size: 10px;"><br><mat-icon>error_outline</mat-icon>{{"No advance payment is required." | translate}}</span></p>
+                            <!-- <p style="font-size: 10px;"><mat-icon>error_outline</mat-icon>No advance payment is required.</p> -->
+                        </div>
+                    </div>
+                    <mat-divider class="mat-dividers"></mat-divider>
+                </div>
+            </div>
+            <mat-paginator style="background-color: transparent; color:white; margin-top: 100px;" #paginator
+                (page)="changePage($event)" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[10, 50, 100]"
+                [pageIndex]="pageIndex" aria-label="Select page">
+            </mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+
+<div style="display: flex; justify-content: center;" *ngIf="userStatus == 'DOCTOR'">
+    <mat-card class="doctor-appointments-card">
+        <mat-card-content>
+            <p style="font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            font-size: 25px; display: flex; justify-content: center; align-items: center; color:white"
+                *ngIf="notFound">{{"No appointments. Wait for people to seek you out." | translate}}</p>
+            <div *ngIf="!notFound">
+                <mat-divider class="mat-dividers"></mat-divider>
+                <div *ngFor="let appointment of appointments"
+                    style="font-size: 16px; font-family: 'Montserrat', cursive; font-weight: 600; color:white; display: flex; flex-direction: column;">
+                    <div
+                        style="display: flex; flex-direction: row;flex-wrap: wrap; justify-content: space-between;padding: 10px 15%;">
+                        <div>
+                            <p style="font-family: 'Baloo 2', cursive;
+                    font-weight: 800;
+                    font-size: 20px;">{{"Name" | translate}}: <a style="color: white; text-decoration-line: underline;"
+                                    #tooltip="matTooltip" matTooltip="Click for patient information"
+                                    matTooltipPosition="above" matTooltipHideDelay="100" (click)="getPatientDetails(appointment.uuid)">{{appointment.name}}</a></p>
+                            <p>{{"Consultation Type" | translate}}: {{appointment.consultingTypes}}</p>
+                            <p>{{"New patient:" | translate}} <span *ngIf="appointment.isNew">{{"true" | translate}}</span><span *ngIf="!appointment.isNew">{{"false" | translate}}</span></p>
+                            <p>{{"Reason:" | translate}} {{appointment.reason}}</p>
+                        </div>
+                        <div>
+                            <p>{{"Date:" | translate}} {{appointment.date}}</p>
+                            <p>{{"Time:" | translate}} {{appointment.time}}</p>
+                            <p> {{"Total amount:" | translate}} {{appointment.totalAmount}} lei</p>
+                        </div>
+                    </div>
+                    <mat-divider class="mat-dividers"></mat-divider>
+                </div>
+            </div>
+            <mat-paginator style="background-color: transparent; color:white; margin-top: 100px;" #paginator
+                (page)="changePage($event)" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[4, 10, 50, 100]"
+                [pageIndex]="pageIndex" aria-label="Select page">
+            </mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

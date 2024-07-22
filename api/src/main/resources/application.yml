@@ -1,0 +1,18 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  port: 8081
+  servlet:
+    context-path: /api/v1
+spring:
+  datasource:
+    driverClassName: 'com.mysql.cj.jdbc.Driver'
+    url: jdbc:mysql://localhost:3306/symptochecker
+    username: root
+    password: valeriacotruta
+    initialization-mode: always
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true

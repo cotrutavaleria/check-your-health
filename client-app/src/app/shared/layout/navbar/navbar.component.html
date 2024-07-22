@@ -1,0 +1,68 @@
+<mat-toolbar class="navbar">
+    <mat-toolbar-row>
+        <span [ngStyle]="{'flex':flexSize}"><a routerLink="/home"><img style="width:190px; margin-top:10px;"
+                    src="./assets/header/logo.png" alt="SymptoChecker"></a></span>
+        <button *ngIf="!hideHorizontalNavbar && ((isPatient && !isAdmin) || !isAuthenticated)"
+            class="navbar-list-item"><a href="/symptom-checker">{{"Symptom Checker" | translate}}</a></button>
+        <button *ngIf="!hideHorizontalNavbar && !isAdmin" class="navbar-list-item"><a href="/help"
+                class="navbar-inline">{{"Help" | translate}}</a></button>
+        <div *ngFor="let item of navbarList">
+            <button *ngIf="!hideHorizontalNavbar && !isAuthenticated" class="navbar-list-item"><a
+                    routerLink="{{item.link}}">{{item.type | translate}}</a></button>
+        </div>
+        <button mat-raised-button *ngIf="!hideHorizontalNavbar && isAuthenticated" id="username"
+            [cdkMenuTriggerFor]="accountActions"><a
+                style="display: flex; align-items: center; color: white;">{{userFullName}}<mat-icon
+                    *ngIf="!isAdmin">arrow_drop_down</mat-icon></a></button>
+        <button *ngIf="!hideHorizontalNavbar && isAuthenticated && isAdmin" class="navbar-list-item"
+            (click)="logout()"><a>{{"Logout" | translate}}</a></button>
+        <button *ngIf="hideHorizontalNavbar" class="icons" mat-mini-fab aria-label="Menu icon"
+            [cdkMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <button class="icons" mat-mini-fab aria-label="Language settings icon" [cdkMenuTriggerFor]="languages">
+            <mat-icon>language</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<ng-template #menu>
+    <div class="navbar-list" cdkMenu>
+        <button class="menu-list-item" *ngIf="(isPatient && !isAdmin) || !isAuthenticated"><a style="font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px; margin-right: 15px; color: white" routerLink="/symptom-checker" cdkMenuItem>{{"Symptom Checker" | translate}}</a></button>
+        <button class="menu-list-item" *ngIf="!isAdmin
+        "><a style="font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px; margin-right: 15px;color: white;" routerLink="/help" cdkMenuItem>{{"Help" | translate}}</a></button>
+        <button *ngIf="moveSearchButton && ((isPatient && !isAdmin) || !isAuthenticated)" class="menu-list-item"
+            (click)="searchDoctorSpecialty()" cdkMenuItem>{{"Search..." | translate }}</button>
+        <div *ngFor="let item of navbarList">
+            <button *ngIf="moveSearchButton && !isAuthenticated" class="menu-list-item" cdkMenuItem><a style="font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+                font-size: 16px; margin-right: 15px; color: white"
+                    routerLink="{{item.link}}">{{item.type | translate}}</a></button>
+        </div>
+        <button *ngIf="isAuthenticated" class="menu-list-item" style="color: white;"
+            [cdkMenuTriggerFor]="accountActions">{{userFullName}}</button>
+        <button *ngIf="isAuthenticated" style="color: white;" class="menu-list-item" (click)="logout()">{{"Logout" | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #languages>
+    <div class="languages-list" cdkMenu>
+        <button class="languages-list-item" cdkMenuItem>{{"Select language" | translate}}</button>
+        <button class="languages-list-item" (click)="changeLanguage('en')" cdkMenuItem>{{"English" | translate}}</button>
+        <button class="languages-list-item" (click)="changeLanguage('ro')" cdkMenuItem>{{"Romanian" | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #accountActions>
+    <div class="navbar-list" cdkMenu>
+        <button *ngIf="isAuthenticated && !isAdmin" class="menu-list-item"><a class="links"
+                href="/settings/profile">{{"Settings" | translate}}</a></button>
+        <button *ngIf="isAuthenticated && !isAdmin" class="menu-list-item"><a class="links"
+                href="/appointments">{{"Appointments" | translate}}</a></button>
+        <button *ngIf="isAuthenticated && !isAdmin" class="menu-list-item" (click)="logout()">{{"Logout" | translate}}</button>
+    </div>
+</ng-template>

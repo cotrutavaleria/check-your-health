@@ -1,0 +1,37 @@
+<mat-card-content>
+    <mat-stepper orientation="vertical" [linear]="false" #stepper>
+        <div *ngFor="let category of categories; let i=index">
+            <mat-step *ngIf="!isLoading">
+                <ng-template matStepLabel>
+                    <h2 [hidden]="category === 'others'">{{category[0].toUpperCase() + category.substring(1)}} Symptoms.
+                    </h2>
+                    <h2 *ngIf="category === 'others'">Other Symptoms.</h2>
+                </ng-template>
+                <p *ngFor="let symptom of allSymptoms[category]"><mat-checkbox (click)="checkSymptom(symptom)"
+                        color="primary" [value]="symptom"><p class="text">{{symptom}}</p></mat-checkbox></p>
+                <div>
+                    <button mat-button matStepperNext class="buttons" style="margin-right:15px;">
+                        <p class="text-buttons">Next</p>
+                    </button>
+                    <button mat-button matStepperPrevious class="buttons" *ngIf="i != 0">
+                        <p class="text-buttons">Back</p>
+                    </button>
+                </div>
+            </mat-step>
+        </div>
+        <mat-step *ngIf="!isLoading">
+            <ng-template matStepLabel>
+                <h2>Done</h2>
+            </ng-template>
+            <p class="text-buttons" style="color: #6a89d1;">You are now done.</p>
+            <div>
+                <button mat-button matStepperPrevious class="buttons">
+                    <p class="text-buttons">Back</p>
+                </button>
+                <button mat-button matStepperPrevious class="buttons" (click)="checkHealthStatus()">
+                    <p class="text-buttons">Check</p>
+                </button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</mat-card-content>

@@ -1,0 +1,16 @@
+a {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: #FFFFFF;
+    border: none;
+    text-decoration: none;
+}
+.tabs{
+    color: #FFFFFF;
+    background-color: #89a5e8;
+}
+
+a:hover, .is-active{
+    background-color:  #89a5e8;
+}

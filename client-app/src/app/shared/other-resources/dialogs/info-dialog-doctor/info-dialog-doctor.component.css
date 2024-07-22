@@ -1,0 +1,21 @@
+.info-dialog {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 300px;
+    height:max-content;
+    background-color:  #89a5e8;
+}
+
+.icons {
+    margin: 10px 10px 20px 0;
+    color: #FFFFFF;
+    background-color:  #89a5e8;
+    border: none;
+}
+
+h2{
+    color: #FFFFFF;
+    padding: 20px 10px 0 35px;
+}

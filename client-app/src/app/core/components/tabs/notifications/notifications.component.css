@@ -1,0 +1,86 @@
+.notifications-card {
+    /* width: 90%; */
+    background-color: #89a5e8;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 10px 20px 10px 10px;
+}
+
+.active {
+    background-color: #6a89d1;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.links:hover,
+.links:active {
+    color: white;
+    transition: font-size 0.3s ease;
+    font-size: 19px;
+}
+
+.buttons {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.icons {
+    background-color: #89a5e8;
+}
+
+.mat-dividers {
+    margin: 0 10px;
+    background-color: white;
+}
+
+.links {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#view-button,
+#accept-button,
+#reject-button, #show-button {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    background-color: #6a89d1;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    font-size: 16px;
+    height: 32px;
+    width: 250px;
+    overflow: hidden;
+}
+
+.show {
+    overflow: visible;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    height: auto;
+}
+
+#notification-name:hover{
+    cursor: pointer;
+}

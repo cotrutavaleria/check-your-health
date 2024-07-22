@@ -1,0 +1,81 @@
+<div class="settings" [ngStyle]="{'align-items':alignItemsMode, 'flex-direction': flexDirectionMode}">
+    <div class="left-card" [ngStyle]="{'width.px': 300, 'flex-direction': flexDirectionModeLeftCard}">
+        <img [src]="profileImage" alt="{{profileImage}}" id="profile-image">
+        <mat-list class="left-side-content">
+            <mat-list-item><button mat-button class="buttons" id="profile-button"><a
+                        href="/settings/profile">{{"Profile" | translate}}</a></button></mat-list-item>
+            <mat-list-item *ngIf="isDoctor"><button mat-button class="buttons" id="other-settings-button"><a
+                        href="/settings/other-settings">{{"Other settings" | translate}}</a></button></mat-list-item>
+            <mat-list-item><button mat-button class="buttons" id="logout-button"
+                    (click)="logout()">{{"Log out" | translate}}</button></mat-list-item>
+        </mat-list>
+    </div>
+    <mat-card class="profile-update-card" [ngStyle]="{'width.%': widthSize, 'margin-right.px':marginLeftSize}">
+        <mat-card-content>
+            <h2>{{"Profile" | translate}}</h2>
+            <form class="update-information-form" [formGroup]="updateProfileInformation"
+                (ngSubmit)="onSubmit(updateProfileInformation)">
+                <div style="display: flex; flex-direction: row; align-items: center;">
+                    <label style="margin-right: 50px; font-size: 20px;">{{"Profile picture:" | translate}}</label>
+                    <input type="file" class="profile-picture" (change)="onFileSelected($event)" #fileUpload>
+                    <div *ngIf="profileImage == ''" style="color: white;">
+                        <button mat-mini-fab color="primary" (click)="fileUpload.click()">
+                            <mat-icon>file_upload</mat-icon>
+                        </button>
+                        {{fileName || "No image uploaded." | translate}}
+                    </div>
+                    <div *ngIf="profileImage != ''" style="color: white;">
+                        <button mat-mini-fab color="primary" (click)="fileUpload.click()">
+                            <mat-icon>file_upload</mat-icon>
+                        </button>
+                        {{fileName  || "Change profile image"| translate }}
+                    </div>
+                </div>
+                <label>{{"Full name" | translate}}:</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Full name" | translate}}</mat-label>
+                    <input style="color:white;" name="fullName" formControlName="fullName" matInput [type]="'text'"
+                        required maxlength="100">
+                    <mat-error *ngIf="updateProfileInformation.controls['fullName'].hasError('minlength')">{{"Your full name must contain at least 4 letters." | translate}}</mat-error>
+                </mat-form-field>
+                <label>{{"E-mail address" | translate}}:</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"E-mail address" | translate}}</mat-label>
+                    <input style="color:white;" name="email" formControlName="email" matInput type='email' required
+                        maxlength="100">
+                    <mat-error *ngIf="updateProfileInformation.controls['email'].hasError('email')">{{"Please, enter a valid e-mail." | translate}}</mat-error>
+                </mat-form-field>
+                <label>{{"Phone number" | translate}}:</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Phone number" | translate}}</mat-label>
+                    <input style="color:white;" name="phoneNumber" formControlName="phoneNumber" matInput [type]="'tel'"
+                        required maxlength="10">
+                    <mat-error *ngIf="updateProfileInformation.controls['phoneNumber'].hasError('pattern')">{{"Please, enter a valid phone number." | translate}}</mat-error>
+                </mat-form-field>
+                <div>
+                    <label>{{"Gender:" | translate}}</label>
+                    <mat-form-field class="input">
+                        <mat-label>{{"Select an option" | translate}}</mat-label>
+                        <mat-select style="color:white;" formControlName="gender" required>
+                            <mat-option value="Male">{{"Male" | translate}}</mat-option>
+                            <mat-option value="Female">{{"Female" | translate}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label>{{"Birthdate:" | translate}}</label>
+                    <mat-form-field class="input">
+                        <mat-label>{{"Choose a date" | translate}}</mat-label>
+                        <input style="color:white;" matInput [matDatepicker]="picker" formControlName="birthdate">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <button id="save-button" [disabled]="updateProfileInformation.invalid" type="submit">{{"Save" | translate}}</button>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,101 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.send-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.close-button {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+#remove-specialty-button {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.input {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+}
+
+.buttons {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #6a89d1;
+    border: none;
+    text-decoration: none;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.buttons:active,
+.buttons:hover {
+    background-position: 0 0;
+    transition: font-size 0.3s ease;
+    font-size: 17px;
+}
+
+.content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 50px 0 80px;
+}
+
+.icons {
+    margin: 10px 10px 0 0;
+    color: #FFFFFF;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+h2 {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 25px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+h4 {
+    font-family: 'Montserrat', cursive;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+p {
+    font-family: 'Montserrat', cursive;
+    color: white;
+    font-weight: 600;
+}

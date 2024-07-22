@@ -1,0 +1,80 @@
+<app-tabs-routing [tabsList]="tabsList"></app-tabs-routing>
+
+<div style="display: flex; flex-direction: column;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="table">
+        <ng-container matColumnDef="day">
+            <th mat-header-cell *matHeaderCellDef> {{"Day:"| translate}} </th>
+            <td mat-cell *matCellDef="let element">{{element.day | translate}}</td>
+        </ng-container>
+        <ng-container matColumnDef="startsAt">
+            <th mat-header-cell *matHeaderCellDef>{{"Starts at:" | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.startsAt}}</td>
+        </ng-container>
+        <ng-container matColumnDef="endsAt">
+            <th mat-header-cell *matHeaderCellDef> {{"Ends at:" | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.endsAt}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> {{"Action"| translate}}: </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button style="background-color:#89a5e8" (click)="removeRow(element)"
+                    matTooltip="Remove row"><mat-icon>remove</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <br>
+    <div class="schedule-explanation">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" style="    background-color: #89a5e8;
+            margin:20px 0 20px 20px;" [ngStyle]="{'width.%': goodToKnowWidth}">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h3>{{"Good to know!" | translate}}</h3>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>{{"If you want to add a day with a lunch break, you can add the same day two or more times." | translate}}
+                    <br>{{"For example:"| translate}}
+                    <br>{{"Monday" | translate}}, 08:00AM — 01:00PM
+                    <br>{{"Monday" | translate}}, 02:00PM — 06:00PM
+                </p>
+                <form [formGroup]="weeklyProgramme" (ngSubmit)="onSubmit(weeklyProgramme)"
+                    style="display: flex; justify-content: center; flex-direction: column; padding: 40px 10px;">
+                    <label>{{"Select the day:" | translate}}</label>
+                    <mat-form-field>
+                        <mat-label>{{"Choose an option:" | translate}}</mat-label>
+                        <mat-select required formControlName="day" style="color: white;">
+                            <mat-option value="1" style="color: #6a89d1;">{{"Monday"|translate}}</mat-option>
+                            <mat-option value="2" style="color: #6a89d1;">{{"Tuesday" | translate}}</mat-option>
+                            <mat-option value="3" style="color: #6a89d1;">{{"Wednesday" | translate}}</mat-option>
+                            <mat-option value="4" style="color: #6a89d1;">{{"Thursday" | translate}}</mat-option>
+                            <mat-option value="5" style="color: #6a89d1;">{{"Friday" | translate}}</mat-option>
+                            <mat-option value="6" style="color: #6a89d1;">{{"Saturday" | translate}}</mat-option>
+                            <mat-option value="0" style="color: #6a89d1;">{{"Sunday" | translate}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <label>{{"Select the time your programme starts:" | translate}}</label>
+                    <mat-form-field>
+                        <mat-label>{{"Set the time:" | translate}}</mat-label>
+                        <input [ngxTimepicker]="picker1" matInput required formControlName="startsAt"
+                            style="color: white;">
+                        <ngx-material-timepicker #picker1></ngx-material-timepicker>
+                    </mat-form-field>
+                    <label>{{"Select the time your programme ends:" | translate}}</label>
+                    <mat-form-field>
+                        <mat-label>{{"Set the time:" | translate}}</mat-label>
+                        <input style="color: white;" [ngxTimepicker]="picker" matInput required formControlName="endsAt">
+                        <ngx-material-timepicker #picker></ngx-material-timepicker>
+                    </mat-form-field>
+                    <button [disabled]="weeklyProgramme.invalid" type="submit" id="add-day-button" class="buttons"
+                        [ngStyle]="{'width.%': addDayButtonWidth}">{{"Add day" | translate}}</button>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <img *ngIf="!hideTabLabel" src="../../../../../assets/schedule/pexels-jessbaileydesign-768472.jpg" alt=""
+            style="width: 35%; height:100%; margin: 20px 0;">
+
+    </div>
+</div>

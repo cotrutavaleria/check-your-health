@@ -1,0 +1,51 @@
+.mat-stepper-vertical {
+    margin-top: 8px;
+    background-color: transparent;
+}
+
+.mat-mdc-form-field {
+    margin-top: 16px;
+}
+
+.labels {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 18px;
+    color: #6a89d1;
+}
+
+h2 {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: #6a89d1;
+    overflow: auto;
+}
+
+
+.buttons {
+    font-family: 'Baloo 2', cursive;
+    background-color: #89a5e8;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    width: 100px;
+    padding-top: 10px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.text-buttons {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 18px;
+    color: white;
+}
+
+.text {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 18px;
+    color: #6a89d1;
+    margin-top: 15px;
+}

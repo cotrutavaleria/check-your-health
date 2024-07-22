@@ -1,0 +1,31 @@
+<div style="display: flex; align-items: center;justify-content: center;">
+    <mat-card class="help-form-card" [ngStyle]="{'width.px': cardWidth}">
+        <mat-card-content>
+            <h2>{{"Contact Us" | translate}}</h2>
+            <form class="help-form" [formGroup]="helpForm">
+                <label>{{"Your full name"|translate}}:</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Enter your full name" | translate}}</mat-label>
+                    <input style="color: white;" formControlName="fullName" matInput type="text" required
+                        maxlength="100">
+                </mat-form-field>
+                <label>E-mail:</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Enter your email" | translate}}</mat-label>
+                    <input style="color: white;" formControlName="emailAddress" matInput type="email" required
+                        maxlength="100">
+                    <mat-error *ngIf="helpForm.controls['emailAddress'].hasError('email')">{{"Please, enter a valid e-mail." | translate}}</mat-error>
+                </mat-form-field>
+                <label>{{"Reason:" | translate}}</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Describe the problem" | translate}}</mat-label>
+                    <textarea style="color: white;" formControlName="reason" matInput cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"
+                        maxlength="200"></textarea>
+                </mat-form-field>
+                <button id="submit-button" [disabled]="helpForm.invalid" type="submit"
+                    (click)="onSubmit(helpForm)">{{"Submit"| translate}}</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,15 @@
+<div class="search-bar-small-screen">
+    <button mat-mini-fab aria-label="Search icon" class="icons" (click)="closeDialog()">
+        <mat-icon>clear</mat-icon>
+    </button>
+    <form class="search-form" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm)">
+        <h2>{{"Search for a doctor" | translate}}</h2>
+        <input type="text" formControlName="specialtyOrDoctorName" class="search-bar-input-small-screen"
+            placeholder="{{'Doctor or specialty...' | translate}}" id="left-search-small-screen">
+        <input type="text" formControlName="location" class="search-bar-input-small-screen"
+            placeholder="{{'Hospital location' | translate}}" id="right-search-small-screen">
+        <button mat-button aria-label="Search icon" id="search-button-small-screen" type="submit">
+            {{"Search" | translate}}
+        </button>
+    </form>
+</div>

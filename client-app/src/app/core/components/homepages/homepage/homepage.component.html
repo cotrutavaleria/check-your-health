@@ -1,0 +1,42 @@
+<div class="quote-card" [ngStyle]="{'height.px': quoteCardWidth, 'background-image': backgroundImage}">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm)">
+        <div *ngIf="!moveSearchButton && (userType == 0 || userType == 3)" class="search-bar-wide-screen">
+            <input formControlName="specialtyOrDoctorName" type="text" class="search-bar-input-wide-screen"
+                placeholder="{{'Doctor, Specialty...' | translate}}" id="left-search-wide-screen" aria-label="Doctor, specialty..."
+                [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" style="color: #6a89d1;">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+            <app-google-adresses-input (placeTyped)="addressInput = $event" [sourcePage]="sourcePage" (value)="workAddress" [value]="workAddress" (input)="onInput($event.target.value)" [placeholderText]="placeholderText">
+            </app-google-adresses-input>
+            <button mat-button aria-label="Search icon" id="search-button-wide-screen"
+                type="submit"><mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-around; margin-top: 20px;">
+    <div class="news" *ngFor="let article of articles">
+        <a href="{{article.url}}">
+            <img mat-card-image src="{{article.image}}" alt="Article Image"
+                style="width: 320px; height: 220px; border-radius: 30px;">
+            <p style=" font-family: 'Baloo 2', cursive;
+          font-weight: 800;
+          color: #6a89d1; font-size: 20px;" class="container">{{article.title}}...</p>
+            <div style=" font-family: 'Montserrat', cursive;
+            font-weight: 600; font-size: 15px;
+            color: #6a89d1;">
+                <div class="container">
+                    <p>{{article.description}}<span>...</span></p>
+                </div>
+            </div>
+        </a>
+        <a href="{{article.url}}" style="font-family: 'Montserrat', cursive;
+        font-weight: 600; font-size: 15px;
+        color: #6a89d1;" id="read-more"><button mat-mini-fab aria-label="Read more"
+                class="icons"><mat-icon>arrow_forward</mat-icon></button>{{"Read more" | translate}}</a>
+
+    </div>
+</div>

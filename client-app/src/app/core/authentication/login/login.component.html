@@ -1,0 +1,32 @@
+<div style="display: flex; align-items: center;justify-content: center;">
+    <mat-card class="login-form-card" [ngStyle]="{'width.px': '380'}">
+        <mat-card-content>
+            <h2>{{"Log In" | translate}}</h2>
+            <form class="login-form" [formGroup]="loginForm">
+                <mat-error *ngIf="loginForm.hasError('FORBIDDEN')">{{"Your account is still not enabled!" | translate}}</mat-error>
+                <mat-error *ngIf="loginForm.hasError('NOT_FOUND')">{{"Your e-mail or password is not correct." | translate}}</mat-error>
+                <label>E-mail:</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Enter your email" | translate}}</mat-label>
+                    <input name="emailAddress" formControlName="emailAddress" matInput [type]="'email'" required
+                        maxlength="100" style="color: white">
+                    <mat-error *ngIf="loginForm.controls['emailAddress'].hasError('required')">{{"E-mail is required." | translate}}</mat-error>
+                    <mat-error *ngIf="loginForm.controls['emailAddress'].hasError('email')">{{"Please, enter a valid e-mail." | translate}}</mat-error>
+                </mat-form-field>
+                <label>{{"Password:" | translate}}</label>
+                <mat-form-field class="input">
+                    <mat-label>{{"Enter your password" | translate}}</mat-label>
+                    <input name="password" formControlName="password" matInput required maxlength="100"
+                        [type]="hide ? 'password' : 'text'" style="color: white">
+                    <button mat-icon-button matSuffix (click)="hide=!hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.controls['password'].hasError('required')">{{"Password is required." | translate}}</mat-error>
+                    <mat-error *ngIf="loginForm.controls['password'].hasError('pattern')">{{"Your password should contain at least 8 characters." | translate}}</mat-error>
+                </mat-form-field>
+                <a href="/auth/reset-password" style="margin-top: 10px;">{{"Forgot your password?" | translate}}</a>
+                <button id="login-button" [disabled]="loginForm.invalid" type="submit" (click)="onSubmit(loginForm)">{{"Log In" | translate}}</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

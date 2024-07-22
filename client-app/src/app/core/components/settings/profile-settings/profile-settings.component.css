@@ -1,0 +1,147 @@
+.settings {
+    display: flex;
+    justify-content: center;
+}
+
+.left-side-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#profile-image {
+    border-radius: 30px;
+    width: 200px;
+    height: 200px;
+    margin-left: 20px;
+}
+
+.buttons {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+    text-decoration: none;
+}
+
+.buttons:hover {
+    color: #6a89d1;
+    transition: font-size 0.3s ease;
+    font-size: 21px;
+}
+
+.buttons:active {
+    color: white;
+    border-radius: 20px;
+}
+
+.left-card {
+    border-radius: 30px;
+    /* background-color: #000000; */
+    margin-top: 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.profile-update-card {
+    border-radius: 30px;
+    background-color: #89a5e8;
+    margin: 40px 0 40px 0;
+}
+
+h2 {
+    margin: 10px 10% 40px 50px;
+    padding: 10px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-bottom: 2px solid #FFFFFF;
+}
+
+.update-information-form {
+    padding: 0 0 0 15%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+label {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+}
+
+.input {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+
+#save-button {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    background-color: #6a89d1;
+    padding: 10px 0px;
+    width: 30%;
+    text-align: center;
+    text-decoration: none;
+    margin-left: 50%;
+    margin-bottom: 10px;
+}
+
+#profile-button {
+    color: white;
+    background-color: #89a5e8;
+    border-radius: 20px;
+}
+
+#other-settings-button {
+    color: white;
+}
+
+#other-settings-button:hover,#logout-button:hover, a:hover  {
+    color: #6a89d1;
+    transition: font-size 0.3s ease;
+    font-size: 21px;
+}
+
+#save-button:hover{
+    transition: font-size 0.3s ease;
+    font-size: 18px;
+    background-color: #6a89d1;
+}
+
+#logout-button {
+    color: white;
+}
+
+a {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: #FFFFFF;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+}
+
+.profile-picture {
+    display: none;
+}

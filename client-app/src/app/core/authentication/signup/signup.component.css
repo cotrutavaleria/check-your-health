@@ -1,0 +1,54 @@
+h2 {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: #89a5e8;
+    overflow: auto;
+}
+
+label {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 18px;
+    color: #89a5e8;
+}
+
+p {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 18px;
+    color: white;
+}
+
+.buttons {
+    font-family: 'Baloo 2', cursive;
+    background-color: #89a5e8;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    width: 100px;
+    padding-top: 10px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.buttons:hover {
+    background-color: #6a89d1;
+    color: white;
+    background-position: 0 0;
+    transition: width 0.3s ease;
+    width: 110px;
+}
+
+.buttons:active {
+    opacity: .5;
+    background-color: #6a89d1;
+}
+
+.input {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}

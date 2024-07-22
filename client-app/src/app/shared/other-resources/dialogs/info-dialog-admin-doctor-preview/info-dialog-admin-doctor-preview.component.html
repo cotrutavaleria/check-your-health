@@ -1,0 +1,21 @@
+<div style="background-color:  #89a5e8; width: 350px;
+height: max-content;">
+    <div class="close-button">
+        <button mat-icon aria-label="close" class="icons" (click)="closeDialog()">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <div class="info-dialog">
+        <h2>{{data.name}}</h2>
+    </div>
+    <div class="content">
+        <h4>E-mail: {{data.email}}</h4>
+        <h4>{{"Specialty:" | translate}} {{data.doctorSpecialty}}</h4>
+        <h4>{{"Work address:" | translate}} {{data.workAddress}}</h4>
+        <h4>{{"Birthdate:" | translate}} {{data.birthdate}}</h4>
+        <h4>{{"Gender:" | translate}} {{data.gender}}</h4>
+        <h4>{{"Phone number" | translate}}: {{data.phoneNumber}}</h4>
+        <button style="background-color: #6a89d1; color: white;" mat-raised-button class="close-button"
+            (click)="sendEmailAdmin(data.email, data.name)">{{"Send email" | translate}}</button>
+    </div>
+</div>

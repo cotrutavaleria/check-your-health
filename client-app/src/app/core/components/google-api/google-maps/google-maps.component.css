@@ -1,0 +1,43 @@
+.buttons {
+    font-family: 'Montserrat', cursive;
+    font-weight: 600;
+    color: white;
+    background-color: #89a5e8;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 15px;
+    margin: 0 5px;
+    text-align: center;
+    transition: 200ms;
+    width: 30%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.buttons:not(:disabled):hover,
+.buttons:not(:disabled):focus {
+  outline: 0;
+  background:  #89a5e8;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.buttons:disabled {
+  filter: saturate(0.2) opacity(0.5);
+  -webkit-filter: saturate(0.2) opacity(0.5);
+  cursor: not-allowed;
+}
+
+::ng-deep .google_map_container {
+    width: 100%;
+    display: block;
+  
+    .map-container {
+      width: 100% !important;
+      border-radius: 4px !important;
+    }
+  }

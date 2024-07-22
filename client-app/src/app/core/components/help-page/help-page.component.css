@@ -1,0 +1,78 @@
+.help-form-card {
+    border-radius: 30px;
+    background-color: #89a5e8;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.help-form {
+    padding: 0 0 0 15%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+label {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+}
+
+
+#submit-button {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    background-color: #6a89d1;
+    padding: 10px 0px;
+    width: 30%;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 10px;
+    margin-left: 25%;
+}
+
+input::placeholder{
+    color:var(--placeholder-color);
+}
+
+#submit-button:hover,
+#submit-button:active {
+    background-color: #6a89d1;
+    color: white;
+    background-position: 0 0;
+    transition: width 0.8s ease;
+    width: 35%;
+    margin-left: 23%;
+}
+
+#submit-button:active {
+    opacity: .5;
+    background-color: #6a89d1;
+}

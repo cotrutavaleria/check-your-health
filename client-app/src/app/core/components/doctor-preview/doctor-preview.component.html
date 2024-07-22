@@ -1,0 +1,135 @@
+<div style="display: flex; margin-top:20px; flex-direction: column;" [ngStyle]="{'align-items': alignItemsRightCard}">
+    <div class="doctor-card">
+        <div style="display: flex; justify-content: center; margin-right:10px;"><img
+                style="border-radius: 30px; width: 120px; height: 120px;" mat-card-md-image [src]="doctor.image" alt="">
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <h2 id="doctor-name">{{doctor.name}}</h2>
+            <div *ngFor="let specialty of doctor.specialties">
+                <mat-card-subtitle *ngIf="!isRomanianLang" class="doctor-details" id="specialty-name"
+                    (click)="searchBySpecialty(specialty.englishName)">{{specialty.englishName}}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="isRomanianLang" class="doctor-details" id="specialty-name"
+                    (click)="searchBySpecialty(specialty.romanianName)">{{specialty.romanianName}}</mat-card-subtitle>
+            </div>
+            <mat-card-subtitle class="doctor-details"><a href="/doctor/{{doctor.uuid}}#rating"
+                    style=" text-decoration: none; color: #6a89d1;"><mat-icon>star_rate</mat-icon>
+                    {{doctor.rate}}</a>
+            </mat-card-subtitle>
+            <mat-card-subtitle class="doctor-details"><mat-icon>location_on</mat-icon>
+                {{doctor.workAddress}}</mat-card-subtitle>
+            <mat-card-subtitle class="doctor-details"><mat-icon>call</mat-icon>
+                {{doctor.phoneNumber}}</mat-card-subtitle>
+        </div>
+    </div>
+    <div class="appointment-card">
+        <mat-divider></mat-divider>
+
+        <h1>{{"Book an appointment!" | translate}}</h1>
+
+        <div style="display: flex; justify-content: center;"
+            [ngStyle]="{'flex-direction': flexDirectionLeftSide,'align-items': alignItemsRightCard}">
+            <mat-card class="demo-inline-calendar-card" [ngStyle]="{'width.px': cardsWidth, 'height.px': cardsHeight}">
+                <mat-calendar [(selected)]="selected" (click)="getAvailableHours()"></mat-calendar>
+            </mat-card>
+
+            <mat-card class="schedule-card" [ngStyle]="{'width.px': cardsWidth, 'height.px': cardsHeight}">
+                <h1 id="selected-date">{{selectedDate}}</h1>
+                <mat-divider class="mat-dividers"></mat-divider>
+                <br>
+                <mat-card-content>
+                    <div *ngFor="let hour of availableHours">
+                        <div class="available-hours">
+                            {{hour}}<button mat-raised-button style="margin-left:100px; background-color: #89a5e8; color: white;" class="buttons"
+                                (click)="createAppointment(hour, doctor.uuid, consultingTypes)">{{"Select"|translate}}</button>
+                        </div>
+                    </div>
+                    <h3 *ngIf="availableHours.length === 0" id="no-available-hours">{{"There are no available hours on the selected date." | translate}}<br> {{"Please, choose another date!" | translate}}</h3>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="consulting-types-card" [ngStyle]="{'width.px': cardsWidth, 'height.px': cardsHeight}">
+                <h1 id="other-services">{{"Other services"|translate}}</h1>
+                <mat-divider class="mat-dividers"></mat-divider>
+                <br>
+                <mat-card-content>
+                    <div *ngFor="let type of consultingTypes">
+                        <div class="consulting-types">
+                            {{type.name}}: <span style="margin-left:15%;">{{type.price}} lei</span>
+                        </div>
+                    </div>
+                    <h3 *ngIf="consultingTypes.length === 0" id="no-available-services">{{"The doctor does not offer any services temporary." |translate}}<br> {{"Please, choose another expert!" | translate}}</h3>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="feedback-card">
+        <mat-divider></mat-divider>
+
+        <h1 id="rating">{{"Let other users know!" | translate}}</h1>
+
+        <mat-card class="your-review-card" [ngStyle]="{'width.px': yourReviewCardWidth}">
+            <mat-card-content>
+                <div style="display: flex; flex-direction: row; align-items: center;">
+                    <img style="border-radius: 50px; width: 70px; height: 70px;" mat-card-md-image [src]="patient.image"
+                        alt="">
+                    <h2 class="patient-name">{{patient.name | translate}}</h2>
+                </div>
+                <form [formGroup]="reviewForm">
+                    <div id="review-form">
+                        <div style="display: flex; flex-direction: row;">
+                            <div class="stars">
+                                <div *ngFor="let star of rated">
+                                    <mat-icon (click)="rateDoctorServices(star)">star</mat-icon>
+                                </div>
+                            </div>
+                            <div class="stars">
+                                <div *ngFor="let star of unrated;">
+                                    <mat-icon (click)="rateDoctorServices(star)">star_border</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-form-field class="input">
+                            <mat-label><mat-icon>feedback</mat-icon>
+                                {{"Give a feedback!(at least 20 characters)" | translate}}</mat-label>
+                            <textarea formControlName="comment" matInput cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"
+                                maxlength="200"></textarea>
+                        </mat-form-field>
+                        <button mat-raised-button class="buttons" type="submit" id="post-review"
+                            [disabled]="reviewForm.invalid" (click)="onSubmit(reviewForm)">{{"Post review"|translate}}</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="all-reviews-card" [ngStyle]="{'width.': 700}">
+            <div class="container">
+                <div *ngFor="let review of reviews">
+                    <mat-divider class="mat-dividers"></mat-divider>
+                    <div style="display: flex; flex-direction: row; margin-top: 10px;">
+                        <img style="border-radius: 50px; width: 70px; height: 70px; margin-right: 10px;"
+                            mat-card-md-image [src]="review.patientProfileImage" alt="Image of a Shiba Inu">
+                        <div style="display: flex; flex-direction: column;">
+                            <h2 class="patient-name">{{review.patientName}}</h2>
+                            <div style="display: flex; flex-direction: row;">
+                                <div class="stars">
+                                    <div *ngFor="let star of review.fullStars">
+                                        <mat-icon>star</mat-icon>
+                                    </div>
+                                </div>
+                                <div class="stars">
+                                    <div *ngFor="let star of review.emptyStars">
+                                        <mat-icon>star_border</mat-icon>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="review">{{review.comment}}</p>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider class="mat-dividers"></mat-divider>
+            </div>
+            <h2 id="noReviews" *ngIf="noReviews">{{"Be the first one to provide us with a review." | translate}}</h2>
+        </div>
+    </div>
+</div>

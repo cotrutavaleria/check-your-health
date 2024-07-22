@@ -1,0 +1,99 @@
+<div class="settings" [ngStyle]="{'align-items':alignItemsMode, 'flex-direction': flexDirectionMode}">
+    <div class="left-card" style="width: 300px; flex-direction: column;">
+        <img [src]="profileImage" alt="" id="profile-image">
+        <mat-list class="left-side-content">
+            <mat-list-item><button mat-button class="buttons" id="profile-button"><a
+                        href="/settings/profile">{{"Profile" | translate}}</a></button></mat-list-item>
+            <mat-list-item><button mat-button class="buttons" id="other-settings-button"><a
+                        href="/settings/other-settings">{{"Other settings" | translate}}</a></button></mat-list-item>
+            <mat-list-item><button mat-button class="buttons" id="logout-button" (click)="logout()">{{"Log out" |
+                    translate}}</button></mat-list-item>
+        </mat-list>
+    </div>
+    <mat-card class="profile-update-card" [ngStyle]="{'width.%': widthSize, 'margin-right.px':marginLeftSize}">
+        <mat-card-content>
+            <h2>{{"Other settings" | translate}}</h2>
+            <form [formGroup]="updateAdditionalInformation" class="update-information-form">
+                <app-google-adresses-input (placeTyped)="addressInput = $event" (input)="onInput($event.target.value)"
+                    (value)="workAddress" [sourcePage]="sourcePage" [value]="workAddress"
+                    [placeholderText]="placeholderText">
+                </app-google-adresses-input>
+                <div formArrayName="specialtyAndConsultationInfo">
+                    <div *ngFor="let specialtyInfo of specialtyAndConsultationInfo().controls; let i=index">
+                        <div [formGroupName]="i">
+                            <label>{{"Specialty:" | translate}}</label>
+                            <mat-form-field class="input">
+                                <mat-label>{{"Select specialty" | translate}}</mat-label>
+                                <mat-select formControlName="specialty" required style="color: white;">
+                                    <div *ngIf="!isRomanianLang">
+                                        <mat-option *ngFor="let specialty of data" [value]="specialty.englishName"
+                                            [disabled]="addedSpecialties.includes(specialty)"
+                                            (click)="addToSpecialties(specialty)" style="color: #6a89d1;">
+                                            {{specialty.englishName}}
+                                        </mat-option>
+                                    </div>
+                                    <div *ngIf="isRomanianLang">
+                                        <mat-option *ngFor="let specialty of data" [value]="specialty.romanianName"
+                                            [disabled]="addedSpecialties.includes(specialty)"
+                                            (click)="addToSpecialties(specialty)" style="color: #6a89d1;">
+                                            {{specialty.romanianName}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                                <span matTextSuffix> <button (click)="removeSpecialty(i)" mat-button
+                                        id="remove-specialty-button">
+                                        {{"Remove" | translate}}
+                                    </button></span>
+                            </mat-form-field>
+                            <div formArrayName="consultingTypeInfo">
+                                <div *ngFor="let consultationType of consultationsTypesList(i).controls; let j=index">
+                                    <div [formGroupName]="j">
+                                        <label>{{"Consultation Type" | translate}}</label>
+                                        <div
+                                            style="display:flex; flex-direction: row; flex-wrap:wrap; width: 80%; color: white;">
+                                            <mat-form-field class="input" style="width:60%">
+                                                <mat-label>{{"Consultation type" | translate}}</mat-label>
+                                                <input formControlName="name" matInput [type]="'text'" required
+                                                    maxlength="100" style="width: 100%;color:white;">
+                                                <span matTextSuffix> <button (click)="removeConsultationType(i,j)"
+                                                        id="remove-consultation-button" mat-button>
+                                                        {{"Remove" | translate}}
+                                                    </button></span>
+                                                <mat-error
+                                                    *ngIf="consultationType.controls['name'].hasError('required')">{{"Consulting
+                                                    name required." | translate}}</mat-error>
+                                                <mat-error
+                                                    *ngIf="consultationType.controls['name'].hasError('minlength')">{{"Consulting
+                                                    name must contain at least 4 characters." | translate}}</mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field floatLabel="always" class="input" style="width: 40%;">
+                                                <mat-label>{{"Price" | translate}}</mat-label>
+                                                <input matInput type="text" formControlName="price" placeholder="0.00"
+                                                    required style="color: white;">
+                                                <span matTextSuffix>RON</span>
+                                                <mat-error
+                                                    *ngIf="consultationType.controls['price'].hasError('required')">{{"Consulting
+                                                    price required." | translate}}</mat-error>
+                                                <mat-error
+                                                    *ngIf="consultationType.controls['price'].hasError('pattern')">{{"Consulting
+                                                    price is not valid." | translate}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button mat-button id="add-consultation-button" (click)="addConsultationType(i)">
+                                {{"Consultation Type" |
+                                translate}}<mat-icon>add_circle_outline</mat-icon></button><br><br>
+                        </div>
+                    </div>
+                    <button mat-button id="add-specialty-button"
+                        (click)="addSpecialty()"><mat-icon>add_circle_outline</mat-icon>
+                        {{"Specialty" | translate}}</button>
+                </div>
+                <button id="save-button" type="submit" (click)="onSubmit(updateAdditionalInformation)">{{"Save" |
+                    translate}}</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

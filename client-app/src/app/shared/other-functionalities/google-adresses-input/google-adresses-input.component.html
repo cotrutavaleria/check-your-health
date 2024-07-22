@@ -1,0 +1,23 @@
+<input [placeholder]="placeholderText | translate" #field class="search-bar-input-wide-screen"
+    id="right-search-wide-screen" *ngIf="sourcePage === 'doctor-listing'" [(ngModel)]="value"
+    (keydown.enter)="$event.preventDefault()" />
+
+<mat-form-field class="input" *ngIf="sourcePage === 'sign-up'">
+    <mat-label>{{"Address" | translate}}</mat-label>
+    <input style="font-size: 15px; color:#6a89d1" #field matInput [placeholder]="placeholderText | translate" required
+        maxlength="100" type="text">
+</mat-form-field>
+
+
+<input class="search-bar-input-wide-screen-homepage" [placeholder]="placeholderText" #field
+    id="right-search-wide-screen" *ngIf="sourcePage === 'homepage'">
+
+<div *ngIf="sourcePage === 'additional-doctor-settings'">
+    <label>{{"Work address:" | translate}}</label>
+    <mat-form-field class="additional-doctor-settings-input">
+        <mat-label>{{"Work address:"| translate}}</mat-label>
+        <input style="font-size: 15px; color:white" #field matInput [type]="'text'" required
+            [placeholder]="placeholderText" [(ngModel)]="value" (keydown.enter)="$event.preventDefault()"
+            maxlength="100">
+    </mat-form-field>
+</div>

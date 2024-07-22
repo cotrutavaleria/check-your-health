@@ -1,0 +1,68 @@
+<div *ngIf="!moveSearchButton" class="search-bar-wide-screen">
+    <form class="search-form" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm)">
+        <div *ngIf="!moveSearchButton" class="search-bar-wide-screen">
+            <input formControlName="doctorSpecialtyOrName" type="text" class="search-bar-input-wide-screen"
+                placeholder="{{'Doctor, Specialty...' | translate}}" id="left-search-wide-screen" aria-label="Doctor, specialty..."
+                [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" style="color: #6a89d1;">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+            <app-google-adresses-input (placeTyped)="addressInput = $event" (input)="onInput($event.target.value)"
+                [sourcePage]="sourcePage" (value)="workAddress" [value]="workAddress" [placeholderText]="placeholderText">
+            </app-google-adresses-input>
+            <button mat-button aria-label="Search icon" id="search-button-wide-screen"
+                type="submit"><mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>
+<div class="doctors-listing-content">
+    <div class="doctors-list">
+        <h1 *ngIf="notFound"
+        style=" font-family: 'Baloo 2', cursive;font-weight: 800;color: #6a89d1; display: flex; align-items: center; justify-content: center;">
+        {{"There was not found any doctor!" | translate}}</h1>
+        <mat-card class="doctor-card" *ngFor="let doctor of doctors">
+            <mat-card-header *ngIf="!notFound">
+                <mat-card-title-group>
+                    <mat-card-title style=" font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            color: white;"><a style="color: white; text-decoration-line: underline;" #tooltip="matTooltip"
+                            matTooltip="Click for doctor information" matTooltipPosition="above"
+                            matTooltipHideDelay="100" href="/doctor/{{doctor.uuid}}">{{doctor.name}}</a>
+                        <div>
+                            <div>
+                                <mat-card-subtitle
+                                    style="font-family: 'Montserrat', cursive;
+            font-weight: 600;
+           color: white; margin-right:10px; margin-top: 2px; margin-bottom: 10px; text-wrap: balance;">{{doctor.specialties}}</mat-card-subtitle>
+                            </div>
+                        </div>
+                    </mat-card-title>
+                    <mat-card-subtitle style="font-family: 'Montserrat', cursive;
+            font-weight: 600;
+            color: white;"><mat-icon>star_rate</mat-icon>
+                        {{doctor.rate}}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle style="font-family: 'Montserrat', cursive;
+            font-weight: 600;
+            color: white;"><mat-icon style="color: white;">location_on</mat-icon>
+                        {{doctor.workAddress}} <span class="click-location"
+                            (click)="showMarkerMapLocations(doctor.workAddress)">{{"(Click to see doctor's location)" | translate}}</span></mat-card-subtitle>
+                    <mat-card-subtitle style="font-family: 'Montserrat', cursive;
+            font-weight: 600;
+            color: white; padding-bottom: 10px;"><mat-icon>phone</mat-icon>
+                        {{doctor.phoneNumber}}
+                    </mat-card-subtitle>
+                    <img class="image" style="border-radius: 30px;" mat-card-md-image [src]="doctor.image" alt="">
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    <app-google-maps></app-google-maps>
+</div>
+<mat-paginator style="background-color: transparent; color: #6a89d1; font-size: 14px;" #paginator
+    (page)="changePage($event)" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 50, 100]"
+    [pageIndex]="pageIndex" aria-label="Select page">
+</mat-paginator>

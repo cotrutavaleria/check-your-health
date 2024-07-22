@@ -1,0 +1,18 @@
+<footer>
+    <div class="footer-content" *ngIf="!hide">
+        <div>
+            <h3>{{"Healthcare Content" | translate}}</h3>
+            <p><a href="/home">{{"Home" | translate}}</a></p>
+            <p><a href="/symptom-checker">{{"Symptom checker" | translate}}</a></p>
+            <p><a href="/help">{{"Help"| translate}}</a></p>
+        </div>
+        <div>
+            <h3>{{"Contact Us"| translate}}</h3>
+            <p type="email"><a>symptochecker.team@gmail.com
+                </a></p>
+        </div>
+    </div>
+    <a class="project-name" href="/">
+        <h3>SymptoChecker, &copy;{{ today | date : "yyyy" }}.</h3>
+    </a>
+</footer>

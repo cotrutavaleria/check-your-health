@@ -1,0 +1,15 @@
+
+p {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+}
+
+h2 {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    overflow: auto;
+}

@@ -1,0 +1,57 @@
+<div style="background-color:  #89a5e8; overflow-x: hidden; 
+overflow-y: auto;" [ngStyle]="{'height.px' : dialogHeight, 'width.px': dialogWidth}">
+    <div class="close-button">
+        <button mat-icon aria-label="close" class="icons" (click)="closeDialog()">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <form [formGroup]="appointmentInformation">
+        <section>
+            <div class="content">
+                <h4><span [ngStyle]="{'margin-right.px': marginRight}">{{"Date:" | translate}}</span>{{data.date}}</h4>
+                <h4><span [ngStyle]="{'margin-right.px': marginRight}">{{"Time:" | translate}}</span>{{data.time}}</h4>
+                <h4>{{"Consulting types:" | translate}} </h4>
+                <div formArrayName="consultingTypes">
+                    <div *ngFor="let type of consultingTypes().controls; let i=index">
+                        <div [formGroupName]="i">
+                            <mat-form-field class="input">
+                                <mat-label>{{"Select consulting type..." | translate}}</mat-label>
+                                <mat-select formControlName="name" required style="color:white;">
+                                    <mat-option *ngFor="let consultingType of data.consultingTypesArray"
+                                        [value]="consultingType.name"
+                                        [disabled]="selectedConsultingTypes.includes(consultingType.name)"
+                                        (click)="addToSelectedConsultingTypes(consultingType, i)"
+                                        style="color: #6a89d1;">
+                                        {{consultingType.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <span matTextSuffix><button (click)="removeConsultingType(i)" mat-button
+                                        id="remove-specialty-button">
+                                        {{"Remove" | translate}}
+                                    </button></span>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button mat-button class="buttons" (click)="addConsultingType()">
+                        {{"Consulting Type" | translate}}<mat-icon>add_circle_outline</mat-icon></button><br><br>
+                </div>
+                <h4>{{"Reason:(maximum 200 characters)" | translate}}</h4>
+                <mat-form-field class="input">
+                    <mat-label>{{"Explain the reason"| translate}}</mat-label>
+                    <textarea formControlName="explanation" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" maxlength="200"></textarea>
+                </mat-form-field>
+                <p>{{"New patient:"| translate}}
+                    <mat-checkbox formControlName="isnewPatient" color="primary">
+                    </mat-checkbox>
+                </p>
+                <h4>{{"Total amount:" | translate}} {{totalAmount}} lei</h4>
+                <p style="font-size: 10px;color: red;"><mat-icon>error_outline</mat-icon>{{"You will have to wait for the doctor to accept your appointment request."| translate}}<br> {{"Please, check from time to time the notifications to inform yourself." | translate}}<br>{{"No advance payment is required."|translate}}</p>
+            </div>
+        </section>
+        <div class="send-button">
+            <button mat-raised-button class="buttons" [disabled]="appointmentInformation.invalid" type="submit"
+                (click)="onSubmit(appointmentInformation)">{{"Send request" | translate}}</button>
+        </div>
+    </form>
+</div>

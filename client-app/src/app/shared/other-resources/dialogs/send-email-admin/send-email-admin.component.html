@@ -1,0 +1,22 @@
+<div style="background-color:  #89a5e8; width: 350px;
+height: max-content;">
+    <div class="close-button">
+        <button mat-icon aria-label="close" class="icons" (click)="closeDialog()">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <div class="content">
+        <h4>{{"Full name" | translate}}: {{data.name}}</h4>
+        <h4>E-mail: {{data.email}}</h4>
+        <form [formGroup]="emailForm" (ngSubmit)="emailForm">
+            <mat-form-field>
+                <mat-label>{{"Autosize textarea" | translate}}</mat-label>
+                <textarea name="message" formControlName="message" matInput cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+            <button mat-raised-button style="background-color: #6a89d1;
+    color: white;" class="close-button" [disabled]="emailForm.invalid" type="submit"
+                (click)="sendEmail(data.email, emailForm)">{{"Send" | translate}}</button>
+        </form>
+    </div>
+</div>

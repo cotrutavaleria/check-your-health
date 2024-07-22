@@ -1,0 +1,98 @@
+a {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: #FFFFFF;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+}
+
+#add-day-button {
+    margin: 20px 20px 20px 0;
+    color: white;
+    border-radius: 20px;
+    background-color: #6a89d1;
+}
+
+#add-day-button:hover {
+    transition: font-size 0.6s ease;
+    font-size: 21px;
+    box-shadow: 0 0 0 3px #6a89d1, 0 3px 8px 0 #6a89d1;
+}
+
+p {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 18px;
+    color: white;
+}
+
+.buttons {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    margin-right: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #89a5e8;
+    border: none;
+    text-decoration: none;
+}
+
+.buttons:active,
+.buttons:hover {
+    color: white;
+    background-color: #89a5e8;
+    border-radius: 20px;
+}
+
+.table {
+    width: 100%;
+    padding: 0 30px 0 30px;
+    background-color: transparent;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+h2 {
+    padding: 10px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 25px;
+    color: white;
+    background-color: #89a5e8;
+    border-radius: 20px;
+    float: left;
+}
+
+h3 {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 25px;
+    color: white;
+}
+
+label,
+.label {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+
+.schedule-explanation {
+    display: flex;
+    flex-direction: row;
+    /* align-items:flex-start; */
+    justify-content: center;
+}

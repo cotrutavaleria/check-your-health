@@ -1,0 +1,17 @@
+html {
+    display: table;
+    width: 100%;
+    height: 100%;
+    background-color: #d5e5f6;
+}
+
+body {
+    vertical-align: top;
+    display: table-cell;
+    position: relative;
+}
+
+body>div {
+    display: table;
+    margin: 0 auto;
+}

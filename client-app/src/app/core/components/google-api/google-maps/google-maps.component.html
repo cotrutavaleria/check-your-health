@@ -1,0 +1,14 @@
+<p *ngIf="mapLoading">Loading the map...</p>
+<div class="google-map-container">
+    <google-map #map max-height="500px" max-width="500px" [zoom]="zoomValue" [center]="mapCenter"
+        [options]="mapOptions">
+        <map-marker #marker="mapMarker" [position]="mapCenter" [options]="markerOptions"
+            (mapClick)="openInfoWindow(marker)">
+        </map-marker>
+        <map-info-window><div [innerHTML]="markerInfoContent"></div></map-info-window>
+    </google-map>
+
+    <button (click)="zoomIn()" class="buttons">{{"Zoom in" | translate}}</button>
+    <button (click)="zoomOut()" class="buttons">{{"Zoom out" | translate}}</button>
+    <button (click)="getMyLocation()" class="buttons">{{"My location" | translate}}</button>
+</div>

@@ -1,0 +1,7 @@
+<nav mat-tab-nav-bar mat-stretch-tabs="false" mat-align-tabs="start" matSortDisableClear animationDuration="0ms" [tabPanel]="tabPanel" class="tabs">
+    <a mat-tab-link *ngFor="let tab of tabsList" [routerLink]="tab.link" routerLinkActive="active" #rla="routerLinkActive"
+        [active]="rla.isActive" [ngClass]="{'is-active': rla.isActive}"> <mat-icon class="example-tab-icon" style="color: aliceblue;">{{tab.icon}}</mat-icon>
+        <span *ngIf="!hideTabLabel" style="color: aliceblue;"> {{ rla.isActive ?  '' : ''}}{{tab.type | translate}}</span>
+    </a>
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>

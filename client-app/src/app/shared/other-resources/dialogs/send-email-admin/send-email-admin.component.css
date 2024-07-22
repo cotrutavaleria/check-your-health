@@ -1,0 +1,35 @@
+.close-button {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 0 10px 0 50px;
+    padding-bottom: 20px;
+}
+
+.icons {
+    margin: 10px 10px 0 0;
+    color: #FFFFFF;
+    background-color: #89a5e8;
+    border: none;
+}
+
+h4 {
+    margin-bottom: 10px;
+    font-family: 'Montserrat', cursive;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
