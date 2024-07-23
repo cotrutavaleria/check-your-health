@@ -4,6 +4,10 @@
 Check Your Health Application (SymptoChecker) is a web application which encourages individual medical education and optimizes the process of finding and determining the right specialist, exerting a positive and constructive influence on the maintenance of health.
 
 ## Demo
+### Part 1
+https://github.com/user-attachments/assets/b5b7d23d-5b58-4d5e-a363-74bdee8b05b7
+### Part 2
+https://github.com/user-attachments/assets/a189c2be-8daf-4ecf-b0ca-a6e32edf3ee6
 
 ## Features
 1. It is informative: It provides a daily selection of online news in the medical fields of interest.
